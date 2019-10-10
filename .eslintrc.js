@@ -1,6 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'emotion'],
   extends: ['sentry-app/strict'],
   globals: {
     require: false,
