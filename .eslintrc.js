@@ -11,7 +11,12 @@ module.exports = {
     tick: true,
     jest: true,
   },
-  rules: {},
+  rules: {
+    'emotion/jsx-import': 'error',
+    'emotion/no-vanilla': 'error',
+    'emotion/import-from-emotion': 'error',
+    'emotion/styled-import': 'error',
+  },
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
