@@ -2,7 +2,7 @@ import {Link} from 'react-router';
 import PropTypes from 'prop-types';
 import React from 'react';
 import marked from 'marked';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import {t, tn, tct} from 'app/locale';
 import Avatar from 'app/components/avatar';

@@ -1,7 +1,7 @@
 import {Flex} from 'grid-emotion';
 import React from 'react';
 import marked from 'marked';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import {extractMultilineFields} from 'app/utils';
 import {t, tct, tn} from 'app/locale';

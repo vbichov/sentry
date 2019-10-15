@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, withRouter} from 'react-router';
 import PropTypes from 'prop-types';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 import {Box} from 'grid-emotion';
 
 import AsyncView from 'app/views/asyncView';

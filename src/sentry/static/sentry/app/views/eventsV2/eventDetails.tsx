@@ -4,7 +4,7 @@ import {Location} from 'history';
 import {Params} from 'react-router/lib/Router';
 import PropTypes from 'prop-types';
 import {omit} from 'lodash';
-import {css} from 'react-emotion';
+import {css} from 'emotion';
 
 import SentryTypes from 'app/sentryTypes';
 import AsyncComponent from 'app/components/asyncComponent';

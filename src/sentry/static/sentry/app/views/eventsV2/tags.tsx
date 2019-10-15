@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 import {isEqual, omit} from 'lodash';
 import {Location} from 'history';
 import * as Sentry from '@sentry/browser';

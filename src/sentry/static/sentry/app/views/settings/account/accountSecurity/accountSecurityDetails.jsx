@@ -4,11 +4,13 @@
  *
  * Also displays 2fa method specific details.
  */
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {Box, Flex} from 'grid-emotion';
 import {withRouter} from 'react-router';
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import {addErrorMessage, addSuccessMessage} from 'app/actionCreators/indicator';
 import {t} from 'app/locale';

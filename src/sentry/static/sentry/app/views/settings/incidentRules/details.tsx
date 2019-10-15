@@ -1,7 +1,8 @@
 import {RouteComponentProps} from 'react-router/lib/Router';
 import {findIndex} from 'lodash';
 import React from 'react';
-import styled, {css} from 'react-emotion';
+import styled from '@emotion/styled';
+import {css} from 'emotion';
 
 import {IncidentRule, Trigger} from 'app/views/settings/incidentRules/types';
 import {Organization, Project} from 'app/types';

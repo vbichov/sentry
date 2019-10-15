@@ -2,7 +2,7 @@ import {Flex} from 'grid-emotion';
 import {Link} from 'react-router';
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import {Panel, PanelBody, PanelHeader} from 'app/components/panels';
 import {

@@ -1,5 +1,5 @@
 import {Flex} from 'grid-emotion';
-import {css, cx} from 'react-emotion';
+import {css, cx} from 'emotion';
 import PropTypes from 'prop-types';
 import React from 'react';
 

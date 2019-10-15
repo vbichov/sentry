@@ -1,5 +1,6 @@
 import React from 'react';
-import styled, {css} from 'react-emotion';
+import styled from '@emotion/styled';
+import {css} from 'emotion';
 
 import {Panel, PanelBody, PanelItem, PanelHeader} from 'app/components/panels';
 import {t} from 'app/locale';

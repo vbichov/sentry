@@ -1,10 +1,12 @@
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {debounce} from 'lodash';
 import {Flex} from 'grid-emotion';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Reflux from 'reflux';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import {addTeamToProject} from 'app/actionCreators/projects';
 import {t} from 'app/locale';

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import posed, {PoseGroup} from 'react-pose';
 import scrollToElement from 'scroll-to-element';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import {analytics} from 'app/utils/analytics';
 import {t} from 'app/locale';
@@ -216,7 +216,7 @@ const OnboardingWrapper = styled('main')`
   padding-bottom: 50vh;
 `;
 
-const Container = styled.div`
+const Container = styled('div')`
   padding: 0 ${space(3)};
   max-width: ${p => p.theme.breakpoints[0]};
   width: 100%;

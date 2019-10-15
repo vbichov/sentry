@@ -1,4 +1,4 @@
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import space from 'app/styles/space';
 
@@ -18,7 +18,7 @@ type SpanRowProps = {
 type SpanRowAndDivProps = Omit<React.HTMLProps<HTMLDivElement>, keyof SpanRowProps> &
   SpanRowProps;
 
-export const SpanRow = styled.div<SpanRowAndDivProps>`
+export const SpanRow = styled('div')<SpanRowAndDivProps>`
   display: ${p => (p.visible ? 'block' : 'none')};
   border-top: ${p => (p.showBorder ? `1px solid  ${p.theme.gray1}` : null)};
   position: relative;

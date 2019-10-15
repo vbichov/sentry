@@ -1,8 +1,10 @@
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import React from 'react';
 import {browserHistory} from 'react-router';
 import $ from 'jquery';
 import {Box} from 'grid-emotion';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import getOnboardingTasks from 'app/components/onboardingWizard/getOnboardingTasks';
 import {t} from 'app/locale';

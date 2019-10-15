@@ -4,7 +4,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import * as Sentry from '@sentry/browser';
 import createReactClass from 'create-react-class';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import {metric} from 'app/utils/analytics';
 import {openSudo} from 'app/actionCreators/modal';

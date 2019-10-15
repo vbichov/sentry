@@ -1,7 +1,7 @@
 import {ECharts, EChartOption} from 'echarts';
 import {debounce, maxBy} from 'lodash';
 import React from 'react';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import {ReactEchartsRef, Series, SeriesDataUnit} from 'app/types/echarts';
 import Graphic from 'app/components/charts/components/graphic';

@@ -2,7 +2,7 @@ import React from 'react';
 import {Box, Flex} from 'grid-emotion';
 import {Link} from 'react-router';
 import {capitalize, omit} from 'lodash';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import {withTheme} from 'emotion-theming';
 

@@ -1,7 +1,9 @@
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {Box, Flex} from 'grid-emotion';
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import {Panel, PanelBody, PanelHeader, PanelItem} from 'app/components/panels';
 import {fields} from 'app/data/forms/projectDebugFiles';

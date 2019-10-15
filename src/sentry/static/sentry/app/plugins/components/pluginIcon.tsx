@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import placeholder from 'app/../images/integrations/integration-default.png';
 import sentry from 'app/../images/integrations/integration-sentry.png';

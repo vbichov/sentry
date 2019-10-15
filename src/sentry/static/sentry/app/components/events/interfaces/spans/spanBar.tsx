@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 import {get} from 'lodash';
 import color from 'color';
 import 'intersection-observer'; // this is a polyfill

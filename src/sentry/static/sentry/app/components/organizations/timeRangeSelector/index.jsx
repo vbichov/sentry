@@ -2,7 +2,7 @@ import {Flex} from 'grid-emotion';
 import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import {DEFAULT_STATS_PERIOD} from 'app/constants';
 import {analytics} from 'app/utils/analytics';

@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import {jsx} from '@emotion/core';
 import {Box, Flex} from 'grid-emotion';
 import {browserHistory} from 'react-router';
 import PropTypes from 'prop-types';

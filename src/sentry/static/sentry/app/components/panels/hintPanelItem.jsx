@@ -1,6 +1,6 @@
 import {Flex} from 'grid-emotion';
 import PropTypes from 'prop-types';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 const HintPanelItem = styled(Flex)`
   border-top: 1px solid ${p => p.theme.borderLighter};

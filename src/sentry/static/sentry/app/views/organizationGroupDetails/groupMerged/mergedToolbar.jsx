@@ -3,7 +3,7 @@ import React from 'react';
 import Reflux from 'reflux';
 import _ from 'lodash';
 import createReactClass from 'create-react-class';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import {openDiffModal} from 'app/actionCreators/modal';
 import {t} from 'app/locale';

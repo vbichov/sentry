@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 import _ from 'lodash';
 
 import {t, tct} from 'app/locale';

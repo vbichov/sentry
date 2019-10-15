@@ -1,4 +1,4 @@
-import {css} from 'react-emotion';
+import {css} from 'emotion';
 
 const SidebarDropdownMenu = p => css`
   position: absolute;

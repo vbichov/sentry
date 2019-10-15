@@ -2,7 +2,7 @@ import React from 'react';
 import Jed from 'jed';
 import {sprintf} from 'sprintf-js';
 import {isString, isArray, isObject} from 'lodash';
-import {css} from 'react-emotion';
+import {css} from 'emotion';
 
 import {getTranslations} from 'app/translations';
 
