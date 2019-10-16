@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import {jsx} from '@emotion/core';
 import PropTypes from 'prop-types';
-import React from 'react';
 import styled from '@emotion/styled';
 import {css} from 'emotion';
 import $ from 'jquery';

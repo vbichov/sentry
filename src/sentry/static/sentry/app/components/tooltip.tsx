@@ -23,11 +23,10 @@ type State = {
 
 // Using an inline-block solves the container being smaller
 // than the elements it is wrapping
-//
-// XXX(epurkhiser): We appease the typescript checker here by avoiding passing
-// props. I am not sure why this works.
-const Container = styled('span')`
-  display: ${(p: any) => p.containerDisplayMode};
+const Container = styled('span')<{
+  containerDisplayMode?: React.CSSProperties['display'];
+}>`
+  ${p => p.containerDisplayMode && `display: ${p.containerDisplayMode}`};
 `;
 
 class Tooltip extends React.Component<Props, State> {
@@ -147,7 +146,7 @@ class Tooltip extends React.Component<Props, State> {
     if (children.type instanceof Function) {
       propList.containerDisplayMode = this.props.containerDisplayMode;
       return (
-        <Container {...propList} innerRef={ref}>
+        <Container {...propList} ref={ref}>
           {children}
         </Container>
       );
@@ -184,14 +183,14 @@ class Tooltip extends React.Component<Props, State> {
               id={this.tooltipId}
               className="tooltip-content"
               aria-hidden={!isOpen}
-              innerRef={ref}
+              ref={ref}
               style={style}
               data-placement={placement}
               popperStyle={popperStyle}
             >
               {title}
               <TooltipArrow
-                innerRef={arrowProps.ref}
+                ref={arrowProps.ref}
                 data-placement={placement}
                 style={arrowProps.style}
               />
