@@ -158,4 +158,4 @@ const StyledLock = styled(InlineSvg)`
   stroke-width: 1.5;
 `;
 
-export default React.forwardRef((props, ref) => <HeaderItem {...props} innerRef={ref} />);
+export default React.forwardRef((props, ref) => <HeaderItem {...props} ref={ref} />);

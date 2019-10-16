@@ -869,7 +869,7 @@ class SmartSearchBar extends React.Component {
           placeholder={placeholder}
           id="smart-search-input"
           name="query"
-          innerRef={this.searchInput}
+          ref={this.searchInput}
           autoComplete="off"
           value={this.state.query}
           onFocus={this.onQueryFocus}

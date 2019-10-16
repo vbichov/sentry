@@ -33,13 +33,10 @@ type MenuProps = {
   onMouseLeave: (e: React.MouseEvent<HTMLElement>) => void;
 } & RefProps;
 
-type IsStyled = {
-  isStyled?: boolean;
-};
+type IsStyled = {};
 
 type RefProps = {
   ref?: Function;
-  innerRef?: Function;
 };
 
 type GetActorArgs = ActorCallbacks & IsStyled & {style?: object};
@@ -345,23 +342,19 @@ class DropdownMenu extends React.Component<Props, State> {
     onMouseEnter,
     onMouseLeave,
     onKeyDown,
-    isStyled,
     style,
     ...props
   }: GetActorArgs = {}) => {
     const {isNestedDropdown, closeOnEscape} = this.props;
 
     // Props that the actor needs to have <DropdownMenu> work
-    //
-    // `isStyled`: with styled-components we need to pass `innerRef` to get DOM el's ref vs `ref` otherwise
     return {
       ...props,
-      ...((isStyled && {innerRef: this.handleActorMount}) || {}),
       style: {
         ...(style || {}),
         outline: 'none',
       },
-      ref: !isStyled ? this.handleActorMount : undefined,
+      ref: this.handleActorMount,
       onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => {
         if (typeof onKeyDown === 'function') {
           onKeyDown(e);
@@ -418,16 +411,12 @@ class DropdownMenu extends React.Component<Props, State> {
     onClick,
     onMouseLeave,
     onMouseEnter,
-    isStyled,
     ...props
   }: GetMenuArgs = {}): MenuProps => {
     // Props that the menu needs to have <DropdownMenu> work
-    //
-    // `isStyled`: with styled-components we need to pass `innerRef` to get DOM el's ref vs `ref` otherwise
     return {
       ...props,
-      ...((isStyled && {innerRef: this.handleMenuMount}) || {}),
-      ref: !isStyled ? this.handleMenuMount : undefined,
+      ref: this.handleMenuMount,
       onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
         if (typeof onMouseEnter === 'function') {
           onMouseEnter(e);

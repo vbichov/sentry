@@ -52,7 +52,7 @@ class CommandPaletteModal extends React.Component {
             <InputWrapper>
               <Input
                 autoFocus
-                innerRef={ref => (this.searchInput = ref)}
+                ref={ref => (this.searchInput = ref)}
                 {...getInputProps({
                   type: 'text',
                   placeholder: t('Search for projects, teams, settings, etc...'),
