@@ -1,14 +1,11 @@
 import React from 'react';
-import styled, {css} from 'react-emotion';
+import styled from 'react-emotion';
 
 import {IncidentRule, Trigger} from 'app/views/settings/incidentRules/types';
 import {Organization, Project} from 'app/types';
-import {openModal} from 'app/actionCreators/modal';
 import {t} from 'app/locale';
 import Button from 'app/components/button';
-import SettingsPageHeader from 'app/views/settings/components/settingsPageHeader';
 import TriggersList from 'app/views/settings/incidentRules/triggers/list';
-import TriggersModal from 'app/views/settings/incidentRules/triggers/modal';
 import withProjects from 'app/utils/withProjects';
 
 type Props = {
@@ -17,76 +14,49 @@ type Props = {
   incidentRuleId?: string;
   rule: IncidentRule;
 
-  onAdd: (trigger: Trigger) => void;
+  onAdd: () => void;
   onEdit: (trigger: Trigger) => void;
   onDelete: (trigger: Trigger) => void;
 };
 
 class Triggers extends React.Component<Props> {
-  openTriggersModal = (trigger?: Trigger) => {
-    const {organization, projects, rule, onAdd, onEdit} = this.props;
+  handleNewTrigger = () => {};
 
-    openModal(
-      ({closeModal}) => (
-        <TriggersModal
-          organization={organization}
-          projects={projects}
-          rule={rule}
-          trigger={trigger}
-          closeModal={closeModal}
-          onSave={trigger ? onEdit : onAdd}
-        />
-      ),
-      {
-        dialogClassName: css`
-          width: 80%;
-          margin-left: -40%;
-        `,
-      }
-    );
-  };
-
-  handleNewTrigger = () => {
-    this.openTriggersModal();
-  };
-
-  handleEditTrigger = (trigger: Trigger) => {
-    this.openTriggersModal(trigger);
-  };
+  handleEditTrigger = () => {};
 
   render() {
-    const {rule, onDelete} = this.props;
+    const {organization, projects, rule, onAdd, onDelete} = this.props;
+    const hasTriggers = rule.triggers && rule.triggers.length > 0;
 
     return (
       <React.Fragment>
-        <TriggersHeader
-          title={t('Triggers')}
-          action={
-            <Button
-              type="button"
-              size="small"
-              priority="primary"
-              icon="icon-circle-add"
-              disabled={!rule}
-              onClick={this.handleNewTrigger}
-            >
-              {t('New Trigger')}
-            </Button>
-          }
-        />
-
         <TriggersList
+          organization={organization}
+          projects={projects}
+          rule={rule}
           triggers={rule.triggers}
           onDelete={onDelete}
           onEdit={this.handleEditTrigger}
         />
+
+        {hasTriggers && (
+          <FullWidthButton
+            type="button"
+            size="small"
+            icon="icon-circle-add"
+            disabled={!rule}
+            onClick={onAdd}
+          >
+            {t('Add another Trigger')}
+          </FullWidthButton>
+        )}
       </React.Fragment>
     );
   }
 }
 
-export default withProjects(Triggers);
-
-const TriggersHeader = styled(SettingsPageHeader)`
-  margin: 0;
+const FullWidthButton = styled(Button)`
+  width: 100%;
 `;
+
+export default withProjects(Triggers);

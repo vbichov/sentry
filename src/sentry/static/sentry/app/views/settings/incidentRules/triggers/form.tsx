@@ -1,8 +1,6 @@
-import FormModel from 'app/views/settings/components/forms/model';
-
-import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
 import React from 'react';
+import debounce from 'lodash/debounce';
 
 import {Client} from 'app/api';
 import {Config, Organization, Project} from 'app/types';
@@ -12,8 +10,12 @@ import {replaceAtArrayIndex} from 'app/utils/replaceAtArrayIndex';
 import {t} from 'app/locale';
 import ActionsPanel from 'app/views/settings/incidentRules/triggers/actionsPanel';
 import AsyncComponent from 'app/components/asyncComponent';
-import Form from 'app/views/settings/components/forms/form';
-import JsonForm from 'app/views/settings/components/forms/jsonForm';
+import FormField from 'app/views/settings/components/forms/formField';
+import FormModel from 'app/views/settings/components/forms/model';
+import Input from 'app/views/settings/components/forms/controls/input';
+import SelectControl from 'app/components/forms/selectControl';
+import TextField from 'app/views/settings/components/forms/textField';
+import ThresholdControl from 'app/views/settings/incidentRules/triggers/thresholdControl';
 import withApi from 'app/utils/withApi';
 import withConfig from 'app/utils/withConfig';
 
@@ -39,7 +41,7 @@ type Props = {
   organization: Organization;
   projects: Project[];
   rule: IncidentRule;
-  trigger?: Trigger;
+  trigger?: Trigger | null;
 };
 
 type State = {
@@ -207,33 +209,7 @@ class TriggerForm extends React.Component<Props, State> {
     const {api, config, organization, projects, rule} = this.props;
     const {alertThreshold, resolveThreshold, isInverted} = this.state;
 
-    return (
-      <JsonForm
-        renderHeader={() => (
-          <TriggersChart
-            api={api}
-            config={config}
-            organization={organization}
-            projects={projects}
-            isInverted={isInverted}
-            alertThreshold={alertThreshold}
-            resolveThreshold={resolveThreshold}
-            query={rule.query}
-            aggregations={rule.aggregations}
-            timeWindow={rule.timeWindow}
-            onChangeIncidentThreshold={this.handleChangeIncidentThreshold}
-            onChangeResolutionThreshold={this.handleChangeResolutionThreshold}
-          />
-        )}
-        fields={[
-          {
-            name: 'label',
-            type: 'text',
-            label: t('Label'),
-            help: t('This will prefix alerts created by this trigger'),
-            placeholder: t('SEV-0'),
-            required: true,
-          },
+    /*
           {
             name: 'alertThreshold',
             type: 'range',
@@ -266,8 +242,42 @@ class TriggerForm extends React.Component<Props, State> {
             help: t('This is a metric that needs to stay above a certain threshold'),
             onChange: this.handleChangeThresholdType,
           },
-        ]}
-      />
+      */
+
+    return (
+      <React.Fragment>
+        <TriggersChart
+          api={api}
+          config={config}
+          organization={organization}
+          projects={projects}
+          isInverted={isInverted}
+          alertThreshold={alertThreshold}
+          resolveThreshold={resolveThreshold}
+          query={rule.query}
+          aggregations={rule.aggregations}
+          timeWindow={rule.timeWindow}
+          onChangeIncidentThreshold={this.handleChangeIncidentThreshold}
+          onChangeResolutionThreshold={this.handleChangeResolutionThreshold}
+        />
+        <TextField
+          name="label"
+          label={t('Label')}
+          help={t('This will prefix alerts created by this trigger')}
+          placeholder={t('SEV-0')}
+          required
+        />
+        <FormField
+          name="alertThreshold"
+          label={t('Trigger Threshold')}
+          help={t('The threshold that will trigger the associated action(s)')}
+          required
+        >
+          {({onChange, onBlur}) => {
+            return <ThresholdControl isBelow={isInverted} threshold={alertThreshold} />;
+          }}
+        </FormField>
+      </React.Fragment>
     );
   }
 }
@@ -359,19 +369,7 @@ class TriggerFormContainer extends AsyncComponent<
     const {organization, rule, trigger, projects, ...props} = this.props;
 
     return (
-      <Form
-        apiMethod={trigger ? 'PUT' : 'POST'}
-        apiEndpoint={`/organizations/${organization.slug}/alert-rules/${
-          rule.id
-        }/triggers/${trigger ? `${trigger.id}/` : ''}`}
-        initialData={{
-          thresholdType: AlertRuleThresholdType.ABOVE,
-          ...trigger,
-        }}
-        saveOnBlur={false}
-        onSubmit={this.handleSubmit}
-        submitLabel={trigger ? t('Update Trigger') : t('Create Trigger')}
-      >
+      <React.Fragment>
         <TriggerForm
           rule={rule}
           trigger={trigger}
@@ -390,7 +388,7 @@ class TriggerFormContainer extends AsyncComponent<
           onChange={this.handleChangeAction}
           onAdd={this.handleAddAction}
         />
-      </Form>
+      </React.Fragment>
     );
   }
 }

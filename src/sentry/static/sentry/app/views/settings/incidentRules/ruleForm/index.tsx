@@ -37,11 +37,11 @@ class RuleFormContainer extends React.Component<Props, State> {
     projects: [this.props.project],
   };
 
-  handleAddTrigger = (trigger: Trigger) => {
+  handleAddTrigger = () => {
     this.setState(({rule}) => ({
       rule: {
         ...rule,
-        triggers: [...rule.triggers, trigger],
+        triggers: [...rule.triggers, {}],
       },
     }));
   };
@@ -121,6 +121,7 @@ class RuleFormContainer extends React.Component<Props, State> {
       >
         <RuleForm api={api} config={config} organization={organization} rule={rule} />
         <Triggers
+          projects={this.state.projects}
           rule={rule}
           organization={organization}
           incidentRuleId={incidentRuleId}

@@ -9,11 +9,8 @@ import {
   TargetType,
 } from 'app/views/settings/incidentRules/types';
 import {Organization, Project} from 'app/types';
-import {Panel, PanelBody, PanelItem, PanelHeader} from 'app/components/panels';
+import {PanelBody, PanelItem, PanelHeader} from 'app/components/panels';
 import {t} from 'app/locale';
-import DropdownAutoComplete from 'app/components/dropdownAutoComplete';
-import DropdownButton from 'app/components/dropdownButton';
-import EmptyMessage from 'app/views/settings/components/emptyMessage';
 import LoadingIndicator from 'app/components/loadingIndicator';
 import SelectControl from 'app/components/forms/selectControl';
 import SelectMembers from 'app/components/selectMembers';
@@ -72,28 +69,17 @@ class ActionsPanel extends React.Component<Props> {
   };
 
   render() {
-    const {actions, className, loading, organization, projects, rule} = this.props;
+    const {actions, loading, organization, projects, rule} = this.props;
 
     const items = Object.entries(ActionLabel).map(([value, label]) => ({value, label}));
 
     return (
-      <Panel className={className}>
-        <PanelHeader hasButtons>
+      <React.Fragment>
+        <PanelSubHeader>
           <div>{t('Actions')}</div>
-          <DropdownAutoComplete
-            blendCorner
-            hideInput
-            onSelect={this.handleAddAction}
-            items={items}
-          >
-            {() => <DropdownButton size="small">{t('Add Action')}</DropdownButton>}
-          </DropdownAutoComplete>
-        </PanelHeader>
+        </PanelSubHeader>
         <PanelBody>
           {loading && <LoadingIndicator />}
-          {!loading && !actions.length && (
-            <EmptyMessage>{t('No Actions have been added')}</EmptyMessage>
-          )}
           {actions.map((action: Action, i: number) => {
             const isUser = action.targetType === TargetType.USER;
             const isTeam = action.targetType === TargetType.TEAM;
@@ -124,8 +110,15 @@ class ActionsPanel extends React.Component<Props> {
               </PanelItemGrid>
             );
           })}
+          <PanelItem>
+            <StyledSelectControl
+              placeholder={t('Add an Action')}
+              onChange={this.handleAddAction}
+              options={items}
+            />
+          </PanelItem>
         </PanelBody>
-      </Panel>
+      </React.Fragment>
     );
   }
 }
@@ -134,11 +127,22 @@ const ActionsPanelWithSpace = styled(ActionsPanel)`
   margin-top: ${space(4)};
 `;
 
+const PanelSubHeader = styled(PanelHeader)`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: ${space(1)} ${space(2)};
+`;
+
 const PanelItemGrid = styled(PanelItem)`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   grid-gap: ${space(2)};
+`;
+
+const StyledSelectControl = styled(SelectControl)`
+  width: 100%;
 `;
 
 export default withOrganization(ActionsPanelWithSpace);
