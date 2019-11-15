@@ -29,34 +29,21 @@ export default class TriggersList extends React.Component<Props> {
   render() {
     const {organization, projects, rule, triggers} = this.props;
 
-    const isEmpty = triggers && !triggers.length;
-
     return (
       <Panel>
         <PanelHeader>{t('Define Trigger')}</PanelHeader>
         <PanelBody>
-          {isEmpty ? (
-            <TriggerForm
-              organization={organization}
-              projects={projects}
-              rule={rule}
-              trigger={null}
-              onSave={this.handleSave}
-            />
-          ) : (
-            triggers.map((trigger, index) => {
-              return (
-                <TriggerForm
-                  key={index}
-                  organization={organization}
-                  projects={projects}
-                  rule={rule}
-                  trigger={trigger}
-                  onSave={this.handleSave}
-                />
-              );
-            })
-          )}
+          {triggers.map((trigger, index) => {
+            return (
+              <TriggerForm
+                key={index}
+                organization={organization}
+                projects={projects}
+                rule={rule}
+                trigger={trigger}
+              />
+            );
+          })}
         </PanelBody>
       </Panel>
     );

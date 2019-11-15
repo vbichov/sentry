@@ -25,6 +25,7 @@ type Props = {
 
 type State = {
   rule: IncidentRule;
+  projects: Project[];
 };
 
 class RuleFormContainer extends React.Component<Props, State> {
@@ -32,7 +33,7 @@ class RuleFormContainer extends React.Component<Props, State> {
     project: SentryTypes.Project,
   };
 
-  state = {
+  state: State = {
     rule: this.props.rule,
     projects: [this.props.project],
   };
@@ -119,7 +120,13 @@ class RuleFormContainer extends React.Component<Props, State> {
         saveOnBlur={false}
         onSubmitSuccess={onSubmitSuccess}
       >
-        <RuleForm api={api} config={config} organization={organization} rule={rule} />
+        <RuleForm
+          api={api}
+          config={config}
+          organization={organization}
+          rule={rule}
+          projects={this.state.projects}
+        />
         <Triggers
           projects={this.state.projects}
           rule={rule}

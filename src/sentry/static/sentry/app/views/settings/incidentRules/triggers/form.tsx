@@ -12,8 +12,6 @@ import ActionsPanel from 'app/views/settings/incidentRules/triggers/actionsPanel
 import AsyncComponent from 'app/components/asyncComponent';
 import FormField from 'app/views/settings/components/forms/formField';
 import FormModel from 'app/views/settings/components/forms/model';
-import Input from 'app/views/settings/components/forms/controls/input';
-import SelectControl from 'app/components/forms/selectControl';
 import TextField from 'app/views/settings/components/forms/textField';
 import ThresholdControl from 'app/views/settings/incidentRules/triggers/thresholdControl';
 import withApi from 'app/utils/withApi';
@@ -172,8 +170,9 @@ class TriggerForm extends React.Component<Props, State> {
     this.updateThresholdInput(AlertRuleThreshold.INCIDENT, value);
   }, 50);
 
-  handleChangeIncidentThreshold = (value: number) => {
-    this.updateThreshold(AlertRuleThreshold.INCIDENT, value);
+  handleChangeIncidentThreshold = (value: Threshold) => {
+    this.updateThreshold(AlertRuleThreshold.INCIDENT, value.threshold);
+    this.changeThresholdType(value.isBelow);
   };
 
   handleChangeResolutionThresholdInput = debounce((value: number) => {
@@ -187,20 +186,20 @@ class TriggerForm extends React.Component<Props, State> {
   /**
    * Changes the threshold type (i.e. if thresholds are inverted or not)
    */
-  handleChangeThresholdType = (value: boolean) => {
+  changeThresholdType = (value: boolean) => {
     // Swap values and toggle `state.isInverted`, so they if invert it twice, they get their original values
     this.setState(state => {
-      const oldValues = {
-        resolve: state.resolveThreshold,
-        alert: state.alertThreshold,
-      };
+      // const oldValues = {
+      // resolve: state.resolveThreshold,
+      // alert: state.alertThreshold,
+      // };
 
-      this.context.form.setValue('resolveThreshold', oldValues.alert);
-      this.context.form.setValue('alertThreshold', oldValues.resolve);
+      // this.context.form.setValue('resolveThreshold', oldValues.alert);
+      // this.context.form.setValue('alertThreshold', oldValues.resolve);
       return {
         isInverted: value,
-        resolveThreshold: oldValues.alert,
-        alertThreshold: oldValues.resolve,
+        // resolveThreshold: oldValues.alert,
+        // alertThreshold: oldValues.resolve,
       };
     });
   };
@@ -209,57 +208,8 @@ class TriggerForm extends React.Component<Props, State> {
     const {api, config, organization, projects, rule} = this.props;
     const {alertThreshold, resolveThreshold, isInverted} = this.state;
 
-    /*
-          {
-            name: 'alertThreshold',
-            type: 'range',
-            label: t('Incident Boundary'),
-            help: !isInverted
-              ? t('Anything trending above this limit will trigger an Incident')
-              : t('Anything trending below this limit will trigger an Incident'),
-            onChange: this.handleChangeIncidentThresholdInput,
-            showCustomInput: true,
-            required: true,
-            min: 1,
-          },
-          {
-            name: 'resolveThreshold',
-            type: 'range',
-            label: t('Resolution Boundary'),
-            help: !isInverted
-              ? t('Anything trending below this limit will resolve an Incident')
-              : t('Anything trending above this limit will resolve an Incident'),
-            onChange: this.handleChangeResolutionThresholdInput,
-            showCustomInput: true,
-            placeholder: resolveThreshold === null ? t('Off') : '',
-            min: 1,
-          },
-          {
-            name: 'thresholdType',
-            type: 'boolean',
-            label: t('Reverse the Boundaries'),
-            defaultValue: AlertRuleThresholdType.ABOVE,
-            help: t('This is a metric that needs to stay above a certain threshold'),
-            onChange: this.handleChangeThresholdType,
-          },
-      */
-
     return (
       <React.Fragment>
-        <TriggersChart
-          api={api}
-          config={config}
-          organization={organization}
-          projects={projects}
-          isInverted={isInverted}
-          alertThreshold={alertThreshold}
-          resolveThreshold={resolveThreshold}
-          query={rule.query}
-          aggregations={rule.aggregations}
-          timeWindow={rule.timeWindow}
-          onChangeIncidentThreshold={this.handleChangeIncidentThreshold}
-          onChangeResolutionThreshold={this.handleChangeResolutionThreshold}
-        />
         <TextField
           name="label"
           label={t('Label')}
@@ -274,7 +224,29 @@ class TriggerForm extends React.Component<Props, State> {
           required
         >
           {({onChange, onBlur}) => {
-            return <ThresholdControl isBelow={isInverted} threshold={alertThreshold} />;
+            return (
+              <ThresholdControl
+                isBelow={isInverted}
+                threshold={alertThreshold}
+                onChange={this.handleChangeIncidentThreshold}
+              />
+            );
+          }}
+        </FormField>
+
+        <FormField
+          name="resolveThreshold"
+          label={t('Resolution Threshold')}
+          help={t('The threshold that will resolve an alert')}
+        >
+          {({onChange, onBlur}) => {
+            return (
+              <ThresholdControl
+                isBelow={!isInverted}
+                threshold={resolveThreshold}
+                onChange={this.handleChangeResolutionThreshold}
+              />
+            );
           }}
         </FormField>
       </React.Fragment>
@@ -287,7 +259,6 @@ type TriggerFormContainerProps = {
   rule: IncidentRule;
   projects: Project[];
   trigger?: Trigger;
-  onSave: (trigger: UnsavedTrigger) => void;
 } & React.ComponentProps<typeof TriggerForm>;
 
 type TriggerFormContainerState = {
@@ -353,13 +324,13 @@ class TriggerFormContainer extends AsyncComponent<
     });
   };
 
-  handleSubmit = (data, _onSuccess, _onError, _e, model: FormModel) => {
-    if (!model.validateForm()) {
-      return;
-    }
+  // handleSubmit = (data, _onSuccess, _onError, _e, model: FormModel) => {
+  // if (!model.validateForm()) {
+  // return;
+  // }
 
-    this.props.onSave(data as Trigger);
-  };
+  // this.props.onSave(data as Trigger);
+  // };
 
   renderLoading() {
     return this.renderBody();

@@ -6,6 +6,7 @@ import {t} from 'app/locale';
 import FormField from 'app/views/settings/components/forms/formField';
 import JsonForm from 'app/views/settings/components/forms/jsonForm';
 import SearchBar from 'app/views/events/searchBar';
+import TriggersChart from 'app/views/settings/incidentRules/triggers/chart';
 
 import {AlertRuleAggregations, IncidentRule, TimeWindow} from '../types';
 import getMetricDisplayName from '../utils/getMetricDisplayName';
@@ -33,11 +34,22 @@ const TIME_WINDOW_MAP: TimeWindowMapType = {
 
 class RuleForm extends React.Component<Props> {
   render() {
-    const {organization} = this.props;
+    const {api, config, projects, rule, organization} = this.props;
 
     return (
       <React.Fragment>
         <JsonForm
+          renderHeader={() => (
+            <TriggersChart
+              api={api}
+              config={config}
+              organization={organization}
+              projects={projects}
+              query={rule.query}
+              aggregations={rule.aggregations}
+              timeWindow={rule.timeWindow}
+            />
+          )}
           forms={[
             {
               title: t('Metric'),

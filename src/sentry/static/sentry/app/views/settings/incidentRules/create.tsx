@@ -1,7 +1,10 @@
 import {RouteComponentProps} from 'react-router/lib/Router';
 import React from 'react';
 
-import {AlertRuleAggregations} from 'app/views/settings/incidentRules/types';
+import {
+  AlertRuleAggregations,
+  AlertRuleThresholdType,
+} from 'app/views/settings/incidentRules/types';
 import {Organization, Project} from 'app/types';
 import recreateRoute from 'app/utils/recreateRoute';
 
@@ -12,7 +15,14 @@ const DEFAULT_RULE = {
   aggregations: DEFAULT_METRIC,
   query: '',
   timeWindow: 60,
-  triggers: [],
+  triggers: [
+    {
+      label: '',
+      alertThreshold: 0,
+      thresholdType: AlertRuleThresholdType.ABOVE,
+      actions: [],
+    },
+  ],
 };
 
 type Props = {
