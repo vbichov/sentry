@@ -21,6 +21,7 @@ import NoProjectMessage from 'app/components/noProjectMessage';
 
 import {PageContent, PageHeader} from 'app/styles/organization';
 import space from 'app/styles/space';
+import theme from 'app/utils/theme';
 
 import Events from './events';
 import SavedQueryButtonGroup from './savedQuery';
@@ -145,9 +146,9 @@ class DiscoverLanding extends React.Component<Props> {
     const {organization} = this.props;
 
     return (
-      <div>
+      <StyledInput>
         <EventInputName organization={organization} eventView={eventView} />
-      </div>
+      </StyledInput>
     );
   };
 
@@ -199,6 +200,11 @@ class DiscoverLanding extends React.Component<Props> {
     );
   }
 }
+
+const StyledInput = styled('span')`
+  font-size: ${p => p.theme.headerFontSize};
+  color: ${theme.gray4};
+`;
 
 const StyledActions = styled('div')`
   display: flex;

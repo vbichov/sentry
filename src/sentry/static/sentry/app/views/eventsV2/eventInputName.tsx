@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'react-emotion';
 import {browserHistory} from 'react-router';
 
 import {Client} from 'app/api';
@@ -9,6 +10,7 @@ import withDiscoverSavedQueries from 'app/utils/withDiscoverSavedQueries';
 
 import {addErrorMessage} from 'app/actionCreators/indicator';
 import {SavedQuery} from 'app/stores/discoverSavedQueriesStore';
+import space from 'app/styles/space';
 
 import InlineInput from 'app/components/inputInline';
 import {handleUpdateQueryName} from './savedQuery/utils';
@@ -79,15 +81,21 @@ class EventInputName extends React.Component<Props> {
     const {eventView} = this.props;
 
     return (
-      <InlineInput
-        ref={this.refInput}
-        name="discover2-query-name"
-        disabled={!eventView.id}
-        value={eventView.name || NAME_DEFAULT}
-        onBlur={this.onBlur}
-      />
+      <StyledHeader>
+        <InlineInput
+          ref={this.refInput}
+          name="discover2-query-name"
+          disabled={!eventView.id}
+          value={eventView.name || NAME_DEFAULT}
+          onBlur={this.onBlur}
+        />
+      </StyledHeader>
     );
   }
 }
+
+const StyledHeader = styled('div')`
+  margin-bottom: ${space(3)};
+`;
 
 export default withApi(withDiscoverSavedQueries(EventInputName));
